@@ -3,7 +3,13 @@ import Link from "next/link";
 import React from "react";
 import Button from "./Button";
 
-function OrderCard({ data }: { data: Order }) {
+function OrderCard({
+  data,
+  handleCancelOrder,
+}: {
+  data: Order;
+  handleCancelOrder: (id: string) => void;
+}) {
   return (
     <div className="flex cursor-pointer flex-col px-3 py-4  items-start space-y-4">
       <p>Order ID - {data.id}</p>
@@ -20,7 +26,13 @@ function OrderCard({ data }: { data: Order }) {
       </p>
       <p>Book Bought - {data.book.title}</p>
 
-     {data.status==="success"&& <Button type="button" text="Cancel Order"/>}
+      {data.status === "success" && (
+        <Button
+          onClick={() => handleCancelOrder(data.id)}
+          type="button"
+          text="Cancel Order"
+        />
+      )}
     </div>
   );
 }

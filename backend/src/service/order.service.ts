@@ -41,6 +41,7 @@ export const createOrderService = async (params: {
     });
     return order;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
@@ -59,6 +60,16 @@ export const cancelOrderService = async ({
       },
       data: {
         status: "cancelled",
+      },
+    });
+    await prisma.user.update({
+      where: {
+        id: order.userId,
+      },
+      data: {
+        credits: {
+          increment: order.amount,
+        },
       },
     });
     return order;
@@ -104,9 +115,9 @@ export const getUserOrderHistoryService = async (params: {
       where: {
         userId,
       },
-      include:{
-        book:true
-      }
+      include: {
+        book: true,
+      },
     });
 
     return order;

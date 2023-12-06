@@ -52,7 +52,7 @@ function Book({ params: { id } }) {
         <p>{book?.title}</p>
         <p>{book?.writer}</p>
         <p>${book?.price}</p>
-        <Button onClick={handleOrder} type="button" text="Order" />
+        <Button onClick={handleOrder} loading={loading} type="button" text="Order" />
       </div>
     </div>
   );

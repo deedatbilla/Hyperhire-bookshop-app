@@ -62,11 +62,16 @@ const Provider = ({ children }: ProviderProps) => {
 
   const getUser = async () => {
     try {
-      const { data } = await AxiosHost.get(`/user/${user.id}`);
+      const { data } = await AxiosHost.get(`/user`);
 
       addUserDetails(data.user);
     } catch (error) {}
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   // Persist user state in localStorage whenever it changes
   useEffect(() => {
     if (user) {

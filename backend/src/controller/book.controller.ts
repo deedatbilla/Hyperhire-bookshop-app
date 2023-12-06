@@ -174,6 +174,7 @@ export const booksController = {
         book,
       });
     } catch (error) {
+      console.log(error)
       response.status(500).json({
         status: 500,
         success: false,
