@@ -29,12 +29,15 @@ const swaggerOptions = {
     ],
     servers: [
       {
-        url: `http://localhost:5000/api/v1/`,
+        url: `https://hyperhire-bookshop-backend.fly.dev`,
+      },
+      {
+        url: `http://localhost:5000`,
       },
       
     ],
   },
-  apis: ["./controller/**/*.ts"],
+  apis: ["./**/*.ts"],
 };
 
 // Initialize swagger-jsdoc
