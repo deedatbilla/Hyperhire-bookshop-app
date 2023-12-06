@@ -28,8 +28,8 @@ const auth = async (req: RequestWithUser, res: Response, next: NextFunction) => 
       throw new Error();
     }
 
-    const tokenIndex = user.token === token;
-    if (!user || !tokenIndex) {
+    const tokenValid = user.token === token;
+    if (!user || !tokenValid) {
       return res
         .status(401)
         .send({ error: "Not authorized to access this resource" });
@@ -38,6 +38,7 @@ const auth = async (req: RequestWithUser, res: Response, next: NextFunction) => 
     req.token = token;
     next();
   } catch (error) {
+    console.log(error.message)
     res.status(401).send({ error: "Not authorized to access this resource" });
   }
 };

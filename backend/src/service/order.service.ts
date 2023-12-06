@@ -1,5 +1,5 @@
 import { Order } from "@prisma/client";
-import { createOrderSchema } from "../entity/schemas";
+import { createOrderSchema, getOrderHistorySchema } from "../entity/schemas";
 import { getBookService } from "./book.service";
 import { getUserService } from "./user.service";
 
@@ -27,6 +27,16 @@ export const createOrderService = async (params: {
       },
       include: {
         book: true,
+      },
+    });
+    await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        credits: {
+          decrement: book.price,
+        },
       },
     });
     return order;
@@ -78,15 +88,25 @@ export const getOrderService = async ({
 
 export const getUserOrderHistoryService = async (params: {
   userId: string;
+  page: number;
+  limit: number;
 }): Promise<Order[]> => {
   try {
-    if (!params.userId) {
-      throw new Error("User ID is required");
+    const { error } = getOrderHistorySchema.validate(params);
+
+    if (error) {
+      throw new Error(error.message);
     }
+    const { page, limit, userId } = params;
     let order = await prisma.order.findMany({
+      skip: page,
+      take: limit,
       where: {
-        id: params.userId,
+        userId,
       },
+      include:{
+        book:true
+      }
     });
 
     return order;

@@ -62,11 +62,18 @@ export const orderController = {
   getOrderHistory: async (request: RequestWithUser, response: Response) => {
     try {
       const { id: userId } = request.user;
-      const order = await getUserOrderHistoryService({ userId });
+      const { page, limit } = request.query;
+      console.log(request.query,"here")
+      const orders = await getUserOrderHistoryService({
+        userId,
+        page: Number(page),
+        limit: Number(limit),
+      });
+      console.log(orders)
       response.status(200).json({
         status: 200,
         success: true,
-        order,
+        orders,
       });
     } catch (error) {
       response.status(500).json({

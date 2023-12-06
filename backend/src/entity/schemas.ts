@@ -13,3 +13,8 @@ export const createOrderSchema = joi.object({
   userId: joi.string().required(),
   bookId: joi.string().required(),
 });
+export const getOrderHistorySchema = joi.object({
+  userId: joi.string().required(),
+  page: joi.number().required(),
+  limit: joi.number().required(),
+});
