@@ -30,7 +30,7 @@ function Book({ params: { id } }) {
         return;
       }
       setLoading(true);
-     
+
       const { data } = await AxiosHost.post("/book/buy", { bookId: id });
       await getUser();
       setLoading(false);
@@ -39,7 +39,9 @@ function Book({ params: { id } }) {
     } catch (error) {
       setLoading(false);
       console.log(error.response);
-      toast.error("There was an error buying this book");
+      toast.error(
+        error?.response?.data?.message || "There was an error buying this book"
+      );
     }
   };
 
