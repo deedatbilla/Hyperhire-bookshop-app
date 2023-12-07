@@ -20,7 +20,7 @@ HyperHire Bookshop test app
 
 ## Project Structure
 
-Explain the structure of your monorepo.
+
 
 ```plaintext
 project-root/
@@ -78,6 +78,6 @@ The frontend is hosted on [Vercel](https://vercel.com). Deployments are automate
 
 ## Database
 
-- **Database Provider:** [NeonDB](https://neondb.io)
+- **Database Provider:** [NeonDB](https://neon.tech/)
 
 
